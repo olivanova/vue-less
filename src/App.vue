@@ -1,26 +1,28 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container">
+    <div class="card">
+      <h2>{{ $i18n('app.title') }}</h2>
+      <button class="btn" @click="change">{{  $i18n('app.btn') }}</button>
+    </div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  data(){
+    return {
+      currentLang: 'ru'
+    }
+  },
+  inject: ['i18nLang'],
+  methods: {
+    change() {
+      this.currentLang = this.currentLang === 'ru' ? 'en' : 'ru'
+      this.i18nLang(this.currentLang);
+      this.$forceUpdate();
+    }
   }
 }
 </script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
