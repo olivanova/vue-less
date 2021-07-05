@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vue Basics</title>
+  <link rel="stylesheet" href="theme.css"/>
+</head>
+<body>
+<div class="container" id="app" v-cloak>
+  <div class="card">
+    <h1>{{ title }}</h1>
+    <div class="form-control">
+      <div class="form-group">
+        <input type="text"
+           :placeholder="placeholderItem"
+           v-model="itemValue"
+           @keypress.enter="addNewItem">
+
+        <div class="count">
+          <button class="btn danger" @click="countItem--">-</button>
+          <input class="input-count" type="text" v-model="countItem" placeholder="0" @keypress.enter="addNewItem">
+          <button class="btn primary" @click="countItem++">+</button>
+        </div>
+
+        <button class="btn primary"
+            @click="addNewItem"
+            :style="{marginLeft: '30px', minWidth: '160px'}">
+          Add new item
+        </button>
+
+      </div>
+    </div>
+    <hr/>
+    <ul class="list" v-if="resultList.length !== 0">
+      <li class="list-item" v-for="(item, index) in resultList">
+        ({{ index + 1 }}) {{ item.name }}
+        <div class="list-btn">
+          <button class="btn danger" @click="item.count--">-</button>
+          <input class="input-count" type="text" v-model="item.count">
+          <button class="btn primary" @click="item.count++">+</button>
+          <button class="btn danger" @click="removeItem(index)" :style="{marginLeft: '30px', minWidth: '160px'}">Delete
+            Item
+          </button>
+        </div>
+      </li>
+    </ul>
+    <div v-else>List is empty</div>
+    <hr/>
+    <div :class="['bold', {'primary': sum > 20 }]">All items: {{ updatedSum }}</div>
+  </div>
+
+</div>
+<script src="https://unpkg.com/vue@next"></script>
+<script src="app.js"></script>
+</body>
+</html>
+

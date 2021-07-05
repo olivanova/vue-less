@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link rel="stylesheet" href="theme.css" />
+  </head>
+  <body>
+  <div class="container" id="app">
+    <div class="card">
+      <h1>Список</h1>
+      <div class="form-control">
+        <input type="text"
+         :placeholder="placeholderString"
+         v-model = "inputValue"
+         @keypress.enter = "addNewNotes"
+        />
+      </div>
+      <button class="btn" @click="addNewNotes">Добавить</button>
+      <hr/>
+      <ul class="list" v-if = "notes.length !== 0">
+        <li class="list-item"
+            v-for="(myNotes, index) in notes">
+          <span
+            :class="['bold', {'primary': myNotes.length > 5}]"
+            :style="{fontSize: '16px', 'color': myNotes.length > 5 ? 'red' : 'green'}"
+          >
+            ({{ index }}) {{ toUppercase(myNotes) }}
+          </span>
+          <button class="btn danger" @click="deleteNotes(index)">delete</button>
+        </li>
+        <hr/>
+        <li>Notes: {{ notes.length }}, double notes {{ doubleCounter }}</li>
+      </ul>
+      <div v-else>Empty list</div>
+      <div v-if="notes.length > 5">Too match</div>
+    </div>
+
+  </div>
+  <script src="https://unpkg.com/vue@next"></script>
+  <script src="app.js"></script>
+  </body>
+</html>
